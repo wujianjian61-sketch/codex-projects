@@ -1,0 +1,17 @@
+const {chromium}=require('playwright');const fs=require('fs');const assert=require('assert/strict');
+(async()=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});try{for(const width of [320,390,768,1440]){const page=await browser.newPage({viewport:{width,height:900}});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.route('**/*',r=>r.abort());await page.clock.install({time:new Date('2026-11-02T12:00:00Z')});await page.setContent(fs.readFileSync('index.html','utf8'));
+const fill=async values=>{for(const [id,value] of Object.entries(values))await page.locator('#'+id).fill(String(value));};
+await fill({length:15,width:12,height:12,weight:.5,price:10.99,factory:9,exchange:7.2});
+assert.match(await page.locator('#season-note').innerText(),/Holiday Peak/);
+assert.match(await page.locator('#metrics').innerText(),/Large Standard/);assert.equal(await page.locator('#fba-total').innerText(),'$5.53');assert.equal(await page.locator('#profit').innerText(),'$2.02');assert.match(await page.locator('#ratios').innerText(),/18.39%.*27.62%/);
+assert.ok(!(await page.locator('body').innerText()).includes('费率待补充'));
+for(const el of await page.locator('.target strong').all())assert.notEqual(await el.innerText(),'—');
+await page.locator('[name=season][value=nonPeak]').check();assert.equal(await page.locator('#fba-total').innerText(),'$5.29');
+await page.locator('[name=season][value=auto]').check();assert.equal(await page.locator('#fba-total').innerText(),'$5.53');
+await page.locator('#copy').click();await page.waitForFunction(()=>document.getElementById('copy-status').textContent.length>0);
+await fill({length:52.5,width:52.5,height:62.5,weight:21,price:9.99});assert.equal(await page.locator('#fba-total').innerText(),'$60.78');
+await page.locator('#price').fill('50');assert.equal(await page.locator('#fba-total').innerText(),'$61.57');
+await fill({length:15,width:12,height:12,weight:.5,price:10.99,factory:9});
+assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.deepEqual(errors,[]);
+if(width===390)await page.screenshot({path:'/tmp/fba-mobile-current.png',fullPage:true});
+console.log('PASS standalone '+width+'px: A $5.53 / profit $2.02, B $60.78/$61.57, modes, targets, copy, no missing-rate text');await page.close();}}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

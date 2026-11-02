@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Amazon US FBA 新品利润评估器</title><style>
+:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#172b39;background:#f5f7f9}*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:32px 24px}header{margin-bottom:24px}.eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;color:#387170}h1{font-size:clamp(24px,4vw,35px);letter-spacing:-1px;margin:10px 0}p{line-height:1.7;margin:8px 0;color:#536572}h2{font-size:17px;margin:0 0 18px}h2 small{display:block;font-size:12px;font-weight:400;color:#647681;margin-top:6px}.card{background:white;border:1px solid #e0e7ec;border-radius:16px;padding:24px;margin-bottom:20px;min-width:0}.layout{display:grid;grid-template-columns:1.08fr 1fr;gap:20px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:24px}.field{display:flex;flex-direction:column;gap:7px;font-size:13px;color:#536572}input[type=number]{width:100%;min-width:0;min-height:50px;border:1px solid #cbd6df;border-radius:8px;padding:12px;font:inherit;font-size:18px;color:#172b39;background:#fff}input:focus{outline:2px solid #217d76;outline-offset:2px}input[aria-invalid=true]{border-color:#c34444}fieldset{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:12px}legend{font-size:14px;font-weight:600;margin-bottom:12px}fieldset label{display:flex;align-items:center;font-size:13px;min-height:38px;gap:5px}input[type=radio]{accent-color:#217d76}.muted,small{font-size:12px;color:#647681}.notice{padding:16px 20px;border:1px solid #ead7a9;background:#fff9eb;border-radius:12px;margin-bottom:20px;font-size:13px}.notice p{margin:4px 0}a{color:#216b72}summary{cursor:pointer;font-size:14px;padding:16px 0;border-top:1px solid #e6ecef}details .fields{margin-top:12px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.section-head h2{margin:0}.badge{font-size:10px;letter-spacing:1px;color:#3c7873;background:#eef7f5;border-radius:5px;padding:6px}.hero{background:#eef6f5;border-radius:12px;padding:22px;margin:18px 0}.hero>span,.profit-hero>span{font-size:13px}.hero strong{display:block;font-size:48px;line-height:1.4;letter-spacing:-1px;color:#145c58}.hero p{font-size:12px}.profit-hero{border-top:1px solid #e6ecef;padding:20px 0 12px}.profit-hero strong{display:block;font-size:38px;margin:8px 0}.profit-hero div{font-size:13px;color:#647681}dl{margin:0}dl div{display:flex;justify-content:space-between;gap:18px;padding:10px 0;border-bottom:1px solid #f0f3f5;font-size:13px}dt{color:#647681}dd{margin:0;text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}dd small{display:block}.verdict{padding:16px;border-radius:10px;line-height:1.7;font-size:14px}.neutral{background:#f2f5f7;color:#536572}.green{background:#eaf7ee;color:#246b3c}.yellow{background:#fff9df;color:#7e6509}.orange{background:#fff0e3;color:#9c5015}.red{background:#fdecec;color:#a83131}.targets{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.target{background:#f5f8fa;padding:16px;border-radius:9px}.target span{font-size:12px;display:block;color:#647681}.target strong{font-size:22px;display:block;margin-top:10px}button{background:#216e69;color:#fff;border:0;border-radius:8px;padding:12px 18px;min-height:44px;font:inherit;font-size:13px;cursor:pointer}button:hover{background:#155953}button:focus-visible{outline:3px solid #80bcb4;outline-offset:3px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:14px;line-height:1.9;color:#435967}li{font-size:13px;line-height:1.9;color:#536572}footer{font-size:12px;line-height:1.8;color:#647681;margin:24px 0}.wide-dl{display:grid;grid-template-columns:1fr 1fr;column-gap:32px}@media(max-width:700px){main{padding:20px 16px}.layout{grid-template-columns:1fr;gap:0}.card{padding:20px}.targets{grid-template-columns:1fr 1fr}.target:last-child{grid-column:1/-1}.wide-dl{grid-template-columns:1fr}.hero strong{font-size:42px}h1{line-height:1.4}.section-head{flex-wrap:wrap}}
+
+</style></head>
+<body><main><header><span class="eyebrow">AMAZON US · 新品开发</span><h1>Amazon US FBA 新品利润评估器</h1><p>输入包装尺寸和重量，快速估算 FBA 尾程费、头程成本与新品利润空间</p></header>
+<div class="layout"><section class="card"><h2>01 包装数据 <small>必填 · 包装后尺寸与毛重</small></h2><div class="fields" id="pack-fields"></div><h2>02 利润数据 <small>选填</small></h2><div class="fields" id="price-fields"></div><fieldset><legend>FBA 费率模式</legend><label><input type="radio" name="season" value="auto" checked>当前费率（自动）</label><label><input type="radio" name="season" value="nonPeak">Non-Peak</label><label><input type="radio" name="season" value="peak">Holiday Peak</label></fieldset><p id="season-note" class="muted"></p><details><summary>高级设置 / 成本参数</summary><div class="fields" id="cost-fields"></div><p class="muted">3.5% 附加费从 2026-04-17 起在基础履约费上单独计算，之前为 0%；模式切换只改变基础费表。佣金按统一比例预估，实际依商品类别而异。</p></details></section>
+<section class="card"><div class="section-head"><h2>实时评估结果</h2><span class="badge">ESTIMATE</span></div><div class="hero"><span>预计 FBA 尾程费合计</span><strong id="fba-total">—</strong><p id="fee-note"></p></div><dl id="metrics"></dl><div class="profit-hero"><span>单件利润</span><strong id="profit">—</strong><div id="ratios"></div></div><div id="verdict" class="verdict neutral"></div></section></div>
+<aside class="notice"><strong>2026 非服装费率 · Non-Peak / Holiday Peak 已启用</strong><p>完整费率按用户提供并核对的 Seller Central 表录入，覆盖全部八个尺寸等级和三个售价档。基础费与 3.5% 附加费分别计算，最终以 Amazon 实际收费为准。</p><a href="#sources">查看费率版本与适用范围</a></aside>
+<section class="card"><h2>利润明细</h2><dl id="breakdown" class="wide-dl"></dl><p class="muted">未计入仓储、入库配置、广告、退货、税费、关税、汇兑及其他费用。</p></section>
+<section class="card"><h2>目标售价反推</h2><p class="muted">按售价档位分别搜索，精确到 $0.01，考虑跨越 $10 / $50 后的 FBA 费用变化。</p><div id="targets" class="targets"></div><p id="target-note" class="muted"></p></section>
+<section class="card"><div class="section-head"><h2>老板快速汇报</h2><button id="copy" type="button">复制结果</button></div><pre id="report"></pre><p id="copy-status" role="status" class="muted"></p></section>
+<section class="card" id="sources"><h2>费率版本与覆盖范围</h2><p>Amazon US 2026 FBA 非服装商品。来源为用户提供并声明已核对的 Seller Central “2026 US FBA fulfillment fee changes”两张表：FBA Non-Peak Fulfillment Fees (excluding apparel) 与 2026 Peak Fulfillment Fees (excluding apparel)。本工具未独立访问原文；不使用服装、危险品或 MCF 费表。</p><ul><li>覆盖 Small Standard 的 8 个重量档、Large Standard 至 3 lb 的 12 档，以及 3+–20 lb 每 4 oz 向上计费档。</li><li>覆盖 Small Bulky、Large Bulky、Extra-Large 四档，全部包含三个售价档及两套季节费率。</li><li>适用等级的体积重宽、高最低按 2 inches 计算，不影响实际体积与头程。Small Standard、Extra-Large 150+ lb 的计费重使用实际重。</li><li>2026-04-17 起对基础费单独计算 Fuel & Logistics Surcharge，默认 3.5%，比例可修改。</li></ul><p>Non-Peak：2026-01-15 至 2026-10-14；Holiday Peak：2026-10-15 至 2027-01-14，均含首尾日期。按美国太平洋日期自动选择，也可手动切换。不外推其他年份费表。汇率 7.20 为可编辑示例，非实时汇率。</p><a href="https://sell.amazon.com/pricing" target="_blank" rel="noopener">Amazon 官方定价</a> · <a href="https://sellercentral.amazon.com/" target="_blank" rel="noopener">Seller Central 官方帮助</a></section>
+<footer>本工具用于新品成本预估。Amazon 最终费用以 Seller Central 实际测量尺寸、重量、商品类别及官方收费为准。Amazon 可能重新测量产品，本工具结果属于 Estimate，并非最终账单。</footer></main><script>
+(()=>{
+'use strict';
+// Rates transcribed from rules the user reports verified in Seller Central.
+// No independent document retrieval has been performed. Missing rows stay absent.
+const shipping=(basis='max')=>({divisor:139,dimensionalMinimumCubicIn:0,basis,packagingLb:0,incrementLb:null,minimumLb:0});
+const tier=(id,label,maxSides,maxTierWeightLb,maxGirthIn=Infinity,basis='max')=>({id,label,maxSides,maxTierWeightLb,maxGirthIn,shipping:{...shipping(basis),minimumWidthIn:id==='small-standard'?0:2,minimumHeightIn:id==='small-standard'?0:2}});
+const bands=['below10','10to50','above50'];
+const rows=(id,bases,includedWeightLb,perStep,maxWeightLb,stepLb=1)=>bands.map((band,i)=>({tier:id,band,maxWeightLb,base:bases[i],includedWeightLb,stepLb,perStep}));
+const standard=(id,limits,fees)=>fees.flatMap((bases,i)=>rows(id,bases,limits[i],0,limits[i]));
+const smallLimits=[2,4,6,8,10,12,14,16].map(oz=>oz/16);
+const largeLimits=[.25,.5,.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3];
+const feeConfig = {
+ version:'Amazon US 2026 · 非服装 · 用户提供完整 Non-Peak / Peak 费表',verified:true,effectiveStart:'2026-01-15',
+ provenance:'用户提供并声明已核实 Seller Central；本工具未独立读取官方原文',
+ sources:['https://sell.amazon.com/pricing','https://sellercentral.amazon.com/'],
+ dimensionalDivisor:139,
+ defaults:{ocean:250,referral:15,fuel:3.5,exchange:7.2},
+ season:{timeZone:'America/Los_Angeles',start:'2026-10-15',end:'2027-01-14',verified:true},
+ sizeTiers:[
+  tier('small-standard','Small Standard',[15,12,0.75],1,Infinity,'unit'),
+  tier('large-standard','Large Standard',[18,14,8],20),
+  tier('small-bulky','Small Bulky',[37,28,20],50,130),
+  tier('large-bulky','Large Bulky',[59,33,33],50,130),
+  tier('xl-0-50','Extra-Large 0–50 lb',[Infinity,Infinity,Infinity],50),
+  tier('xl-50-70','Extra-Large 50+–70 lb',[Infinity,Infinity,Infinity],70),
+  tier('xl-70-150','Extra-Large 70+–150 lb',[Infinity,Infinity,Infinity],150),
+  tier('xl-150','Extra-Large 150+ lb',[Infinity,Infinity,Infinity],Infinity,Infinity,'unit')
+ ],
+ rateCards:{
+  nonPeak:[
+   ...standard('small-standard',smallLimits,[[2.43,3.32,3.58],[2.49,3.42,3.68],[2.56,3.45,3.71],[2.66,3.54,3.80],[2.77,3.68,3.94],[2.82,3.78,4.04],[2.92,3.91,4.17],[2.95,3.96,4.22]]),
+   ...standard('large-standard',largeLimits,[[2.91,3.73,3.99],[3.15,3.97,4.23],[3.42,4.24,4.50],[3.83,4.65,4.91],[4.29,5.11,5.37],[4.68,5.50,5.76],[4.84,5.66,5.92],[5.10,5.92,6.18],[5.24,6.06,6.32],[5.44,6.26,6.52],[5.61,6.43,6.69],[6.03,6.85,7.11]]),
+   ...rows('large-standard',[6.46,7.28,7.54],3,.08,20,.25),
+   ...rows('small-bulky',[6.58,7.35,7.35],1,.38,50),
+   ...rows('large-bulky',[8.38,9.15,9.15],1,.38,50),
+   ...rows('xl-0-50',[24.87,25.64,25.64],1,.38,50),
+   ...rows('xl-50-70',[34.86,35.63,35.63],51,.75,70),
+   ...rows('xl-70-150',[45.90,46.67,46.67],71,.75,150),
+   ...rows('xl-150',[174.54,175.31,175.31],151,.19,Infinity)
+  ],
+  peak:[
+   ...standard('small-standard',smallLimits,[[2.62,3.51,3.77],[2.68,3.61,3.87],[2.76,3.65,3.91],[2.86,3.74,4.00],[2.98,3.89,4.15],[3.03,3.99,4.25],[3.14,4.13,4.39],[3.17,4.18,4.44]]),
+   ...standard('large-standard',largeLimits,[[3.15,3.97,4.23],[3.39,4.21,4.47],[3.66,4.48,4.74],[4.07,4.89,5.15],[4.52,5.34,5.60],[4.91,5.73,5.99],[5.07,5.89,6.15],[5.33,6.15,6.41],[5.47,6.29,6.55],[5.67,6.49,6.75],[5.84,6.66,6.92],[6.26,7.08,7.34]]),
+   ...rows('large-standard',[6.69,7.51,7.77],3,.08,20,.25),
+   ...rows('small-bulky',[7.82,8.59,8.59],1,.38,50),
+   ...rows('large-bulky',[9.62,10.39,10.39],1,.38,50),
+   ...rows('xl-0-50',[28.29,29.06,29.06],1,.38,50),
+   ...rows('xl-50-70',[39.36,40.13,40.13],51,.75,70),
+   ...rows('xl-70-150',[54.97,55.74,55.74],71,.75,150),
+   ...rows('xl-150',[202.69,203.46,203.46],151,.19,Infinity)
+  ]
+ },
+ // Retain the existing user-editable estimate; not represented as verified official surcharge.
+ surcharge:{verified:true,enabled:true,basis:'baseFulfillmentFee',effectiveStart:'2026-04-17',provenance:'按用户成本参数估算，默认 3.5%，按本次用户确认执行'}
+};
+
+const config=feeConfig;
+const moneyRound=x=>Math.round((x+Number.EPSILON)*100)/100;
+const priceBand=p=>p<10?'below10':p<=50?'10to50':'above50';
+// Allow only floating point representation noise at inclusive boundaries.
+const atMost=(value,limit)=>value<=limit || (Number.isFinite(limit)&&Math.abs(value-limit)<=8*Number.EPSILON*Math.max(1,Math.abs(value),Math.abs(limit)));
+function surchargePercent(config,percent,date=seasonFor(config).date){
+ return config.surcharge.effectiveStart && date<config.surcharge.effectiveStart ? 0 : percent;
+}
+function packaging({length,width,height,weight}){
+ if(![length,width,height,weight].every(x=>Number.isFinite(x)&&x>0))return null;
+ const cm=[length,width,height].sort((a,b)=>b-a),inches=cm.map(x=>x/2.54),cbm=length*width*height/1e6;
+ if(![cbm,weight*2.2046226218,...inches].every(Number.isFinite))return null;
+ return {cm,inches,cbm,unitLb:weight*2.2046226218,cubicIn:inches.reduce((a,b)=>a*b),girthIn:inches[0]+2*(inches[1]+inches[2])};
+}
+function seasonFor(config,mode='auto',now=new Date()){
+ const date=new Intl.DateTimeFormat('en-CA',{timeZone:config.season.timeZone,year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
+ return {date,season:mode==='auto'?(date>=config.season.start&&date<=config.season.end?'peak':'nonPeak'):mode};
+}
+function dimensionalWeight(p,r){
+ // Keep measured dimensions untouched: minimums apply to dimensional weight only.
+ const minimumWidth=r.minimumWidthIn??0,minimumHeight=r.minimumHeightIn??0;
+ const cubicIn=minimumWidth||minimumHeight
+  ? p.inches[0]*Math.max(p.inches[1],minimumWidth)*Math.max(p.inches[2],minimumHeight)
+  : p.cubicIn;
+ return cubicIn/r.divisor;
+}
+function classify(p,c){
+ if(!p||!c.verified)return null;
+ return c.sizeTiers.find(t=>{
+  const tierWeight=c.dimensionalDivisor?Math.max(p.unitLb,dimensionalWeight(p,t.shipping)):p.unitLb;
+  return p.inches.every((v,i)=>atMost(v,t.maxSides[i]))&&atMost(tierWeight,t.maxTierWeightLb??t.maxUnitLb)&&atMost(p.girthIn,t.maxGirthIn);
+ })??null;
+}
+function shippingWeight(p,t){
+ const r=t.shipping,dimensionalLb=dimensionalWeight(p,r);
+ const basis=r.basis==='max'&&p.cubicIn>=r.dimensionalMinimumCubicIn?Math.max(p.unitLb,dimensionalLb):p.unitLb;
+ const raw=Math.max(r.minimumLb,basis+r.packagingLb);
+ return {dimensionalLb,shippingLb:r.incrementLb?Math.ceil(raw/r.incrementLb-1e-10)*r.incrementLb:raw};
+}
+function fulfillment(p,price,c,season,fuel,date=seasonFor(c).date){
+ if(!p)return {status:'packaging'};
+ if(!(price>0)&&price!==null)return {status:'price'};
+ if(price===null)return {status:'price'};
+ if(!c.verified)return {status:'unverified'};
+ if(!Number.isFinite(price)||!Number.isFinite(fuel)||fuel<0)return {status:'parameters'};
+ const tier=classify(p,c);if(!tier)return {status:'unsupported'};
+ const weight=shippingWeight(p,tier);
+ const row=c.rateCards[season]?.find(r=>r.tier===tier.id&&r.band===priceBand(price)&&atMost(weight.shippingLb,r.maxWeightLb));
+ if(!row)return {status:'missing-rate',tier,...weight};
+ const steps=Math.max(0,Math.ceil((weight.shippingLb-row.includedWeightLb)/row.stepLb-1e-10));
+ const base=moneyRound(row.base+steps*row.perStep),surcharge=moneyRound(base*surchargePercent(c,fuel,date)/100);
+ return {status:'ok',tier,...weight,base,surcharge,total:moneyRound(base+surcharge)};
+}
+function financials(price,factoryRmb,exchange,referral,firstMile,fba){
+ if(![price,factoryRmb,exchange,referral,firstMile,fba].every(Number.isFinite)||price<=0||factoryRmb<0||exchange<=0||referral<0||referral>=100||firstMile<0||fba<0)return null;
+ const factory=factoryRmb/exchange,commission=price*referral/100,investment=factory+firstMile+fba,profit=price-commission-investment;
+ return {factory,commission,profit,margin:profit/price*100,roi:investment>0?profit/investment*100:null};
+}
+function judgment(profit,margin){
+ if(profit<0)return {tone:'red',text:'预计亏损，不建议按当前成本开发'};
+ if(margin>=25)return {tone:'green',text:'利润空间健康'};
+ if(margin>=15)return {tone:'yellow',text:'可以考虑，但建议继续优化成本'};
+ return {tone:'orange',text:'利润空间偏低，谨慎开发'};
+}
+// Search independently in each band: crossing a price threshold can change fixed FBA fees.
+function targetPrice(target,evaluate,maxCents=100000000){
+ for(const [lo,hi] of [[1,999],[1000,5000],[5001,maxCents]]){
+  if(hi<lo)continue;
+  const meets=c=>{const r=evaluate(c/100);return r&&r.margin+1e-9>=target;};
+  if(!meets(hi))continue;
+  let l=lo,r=hi;while(l<r){const m=Math.floor((l+r)/2);if(meets(m))r=m;else l=m+1;}
+  return l/100;
+ }
+ return null;
+}
+
+const $=id=>document.getElementById(id);
+const fields=[
+ ['pack-fields','length','长度 cm',null,false],['pack-fields','width','宽度 cm',null,false],['pack-fields','height','高度 cm',null,false],['pack-fields','weight','毛重 kg',null,false],
+ ['price-fields','price','Amazon 售价 USD',null,false],['price-fields','factory','出厂价 RMB',null,true],['price-fields','exchange','RMB/USD 汇率',config.defaults.exchange,false],
+ ['cost-fields','ocean','头程海运 USD / m³',config.defaults.ocean,true],['cost-fields','referral','Amazon 佣金 %',config.defaults.referral,true],['cost-fields','fuel','Fuel / Logistics %',config.defaults.fuel,true]
+];
+for(const [group,id,label,value,zero] of fields){
+ const el=document.createElement('label');el.className='field';el.htmlFor=id;el.textContent=label;
+ const input=document.createElement('input');Object.assign(input,{type:'number',id,inputMode:'decimal',step:'any',min:zero?'0':'0.000001',placeholder:'请输入',autocomplete:'off'});
+ if(id==='referral')input.max='99.99';
+ if(value!==null)input.value=value;
+ el.append(input);$(group).append(el);
+}
+const usd=x=>Number.isFinite(x)?`$${x.toFixed(2)}`:'—';
+const num=(x,n=2)=>Number.isFinite(x)?x.toFixed(n):'—';
+function read(id){const el=$(id),v=el.value.trim()===''?null:el.valueAsNumber;const def=fields.find(f=>f[1]===id);const valid=v===null||(Number.isFinite(v)&&(def[4]?v>=0:v>0)&&(id!=='referral'||v<100));el.setAttribute('aria-invalid',String(!valid));return valid?v:null;}
+function list(id,rows){$(id).replaceChildren(...rows.map(([name,value])=>{const div=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=name;dd.textContent=value;div.append(dt,dd);return div;}));}
+let report='';
+function render(){
+ const v=Object.fromEntries(fields.map(f=>[f[1],read(f[1])]));
+ const p=packaging(v),s=seasonFor(config,document.querySelector('[name=season]:checked').value);
+ const params=[v.ocean,v.referral,v.fuel,v.exchange].every(x=>x!==null);
+ const first=p&&v.ocean!==null?p.cbm*v.ocean:null;
+ const tier=classify(p,config),weight=tier?shippingWeight(p,tier):null;
+ const fee=params?fulfillment(p,v.price,config,s.season,v.fuel,s.date):{status:'parameters'};
+ const finance=fee.status==='ok'&&v.factory!==null?financials(v.price,v.factory,v.exchange,v.referral,first,fee.total):null;
+ const decision=finance?judgment(finance.profit,finance.margin):null;
+ const messages={packaging:'请输入完整、有效的包装尺寸与毛重。',price:'请输入预计售价，以获得准确 FBA Fee。',unverified:'待确认：缺少已核实的 Amazon 2026 官方尺寸规则及费表。',unsupported:'该包装不在已确认支持的尺寸等级内。','missing-rate':'费率待补充：该尺寸等级、期间或售价档位尚未提供完整费率。',parameters:'请检查汇率与高级成本参数。',ok:'基础费按用户确认费表；附加费按成本参数单独计算。'};
+ $('season-note').textContent=`美国太平洋日期 ${s.date} · ${s.season==='peak'?'Holiday Peak':'Non-Peak'}；旺季窗口与尺寸规则按用户确认数据。`;
+ $('fba-total').textContent=fee.status==='ok'?usd(fee.total):'—';$('fee-note').textContent=messages[fee.status];
+ list('metrics',[
+ ['Product Size Tier',tier?tier.label:'待官方规则确认'],
+ ['Longest / Median / Shortest',p?p.inches.map(x=>num(x)).join(' / ')+' inch':'—'],
+ ['实际重量 · Unit Weight',p?num(p.unitLb)+' lb':'—'],
+ ['体积重量 · Dimensional Weight',weight?num(weight.dimensionalLb)+' lb':'待确认适用除数'],
+ ['Amazon Shipping Weight',weight?num(weight.shippingLb)+' lb':'待官方规则确认'],
+ ['Length + Girth',p?num(p.girthIn)+' inch':'—'],
+ ['包装体积',p?num(p.cbm,4)+' m³':'—'],['预计头程 / 件',usd(first)],
+ ['FBA 基础履约费',fee.status==='ok'?usd(fee.base):'费率待补充'],
+ [`Fuel & Logistics Surcharge (${num(surchargePercent(config,v.fuel,s.date))}%)`,fee.status==='ok'?usd(fee.surcharge):'待确认基础费']
+ ]);
+ $('profit').textContent=usd(finance?.profit);
+ $('ratios').textContent=finance?`利润率 ${num(finance.margin)}% · ROI ${finance.roi===null?'不适用':num(finance.roi)+'%'}`:'利润率 — · ROI —';
+ $('verdict').className='verdict '+(decision?.tone??'neutral');$('verdict').textContent=decision?`${decision.text} · 每卖 1 件预计赚：${usd(finance.profit)}`:'填写利润数据并确认官方费表后，可判断新品利润空间。';
+ const factory=v.factory!==null&&v.exchange!==null?v.factory/v.exchange:null;
+ const commission=v.price!==null&&v.referral!==null?v.price*v.referral/100:null;
+ list('breakdown',[['销售收入',usd(v.price)],['Amazon 佣金',usd(commission)],['FBA 尾程费',fee.status==='ok'?usd(fee.total):'费率待补充'],['头程运费',usd(first)],['出厂成本 USD',usd(factory)],['单件利润',usd(finance?.profit)],['利润率',finance?num(finance.margin)+'%':'—'],['ROI',finance?.roi!=null?num(finance.roi)+'%':'—']]);
+ const canTarget=p&&params&&v.factory!==null&&config.verified;
+ $('targets').replaceChildren(...[0,15,20,25,30].map(target=>{
+  const value=canTarget?targetPrice(target,price=>{const f=fulfillment(p,price,config,s.season,v.fuel,s.date);return f.status==='ok'?financials(price,v.factory,v.exchange,v.referral,first,f.total):null;}):null;
+  const el=document.createElement('div');el.className='target';const label=document.createElement('span'),strong=document.createElement('strong');label.textContent=target?`${target}% 利润率`:'保本售价';strong.textContent=usd(value);el.append(label,strong);return el;
+ }));
+ $('target-note').textContent=canTarget?'搜索上限 $1,000,000.00；— 表示范围内无可用结果。':'需要完整包装、出厂价、有效成本参数及已核实的官方费表；不会按零尾程费反推。';
+ report=[`Amazon US 新品评估（Estimate）`,`包装：${p?[v.length,v.width,v.height].join(' × ')+' cm / '+v.weight+' kg':'未填完整'}`,`Size Tier：${tier?.label??'待官方规则确认'}`,`FBA 模式：${s.season==='peak'?'Holiday Peak':'Non-Peak'}（按用户确认规则）`,`FBA 基础费：${fee.status==='ok'?usd(fee.base):'费率待补充'}`,`Fuel/Logistics：${fee.status==='ok'?usd(fee.surcharge):'待确认'}`,`FBA 尾程：${fee.status==='ok'?usd(fee.total):'费率待补充'}`,`头程：${usd(first)} / 件`,`售价：${usd(v.price)}`,`出厂价：${v.factory===null?'—':'¥'+num(v.factory)}（汇率 ${num(v.exchange)} RMB/USD）`,`单件利润：${usd(finance?.profit)}`,`利润率：${finance?num(finance.margin)+'%':'—'}`,`建议：${decision?.text??'费率未确认，暂不作开发判断'}`,`费用未含广告、仓储、退货、税费等；最终以 Seller Central 实际测量与收费为准。`].join('\n');
+ $('report').textContent=report;
+ $('copy-status').textContent='';
+}
+document.addEventListener('input',render);document.addEventListener('change',render);
+$('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(report);$('copy-status').textContent='已复制，可直接粘贴到微信。';}catch{const selection=window.getSelection(),range=document.createRange();range.selectNodeContents($('report'));selection.removeAllRanges();selection.addRange(range);$('copy-status').textContent='浏览器未允许自动复制，已选中摘要，请长按或按 Ctrl/Cmd+C 复制。';}});
+render();
+
+})();
+</script></body></html>

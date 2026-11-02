@@ -1,0 +1,10 @@
+{
+  "name": "fba-estimator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/run.mjs",
+    "start": "python3 -m http.server 8000 --bind 0.0.0.0",
+    "build:preview": "node scripts/build-preview.mjs"
+  }
+}
